@@ -17,10 +17,13 @@ import (
 	"unicode/utf8"
 )
 
-var rows [][]string
+var (
+	rows [][]string
+	c    = flag.Bool("c", false, "use comma for separator")
+)
 
 func usage() {
-	fmt.Fprintf(os.Stderr, "usage: tcat [file...]\n")
+	fmt.Fprintf(os.Stderr, "usage: tcat [-c] [file...]\n")
 	os.Exit(2)
 }
 
@@ -54,9 +57,16 @@ func read(r io.Reader) {
 		if line == "" {
 			continue
 		}
-		row := strings.Fields(line)
+		row := split(line)
 		rows = append(rows, row)
 	}
+}
+
+func split(s string) []string {
+	if *c {
+		return strings.Split(strings.TrimSpace(s), ",")
+	}
+	return strings.Fields(s)
 }
 
 func printTable(w io.Writer, rows [][]string) {

@@ -1,1 +1,1 @@
-module "rsc.io/tcat"
+module "github.com/ratrocket/tcat"
