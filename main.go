@@ -20,12 +20,14 @@ import (
 var (
 	rows [][]string
 	c    = flag.Bool("c", false, "use comma for separator")
+	p    = flag.Bool("p", false, "use pipe for separator")
 	sep  = flag.String("s", "", "use <string> for separator")
 )
 
 func usage() {
-	// Must note that "-c" takes precedence over "-s".
-	fmt.Fprintf(os.Stderr, "usage: tcat [-c] [-s <string>] [file...]\n")
+	// Must note that "-c" takes precedence over "-p" which takes
+	// precedence over "-s".
+	fmt.Fprintf(os.Stderr, "usage: tcat [-cp] [-s <string>] [file...]\n")
 	os.Exit(2)
 }
 
@@ -34,6 +36,9 @@ func main() {
 	log.SetFlags(0)
 	flag.Usage = usage
 	flag.Parse()
+	if *p {
+		*sep = "|"
+	}
 	if *c {
 		*sep = ","
 	}
