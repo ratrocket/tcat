@@ -20,15 +20,16 @@ import (
 var (
 	rows [][]string
 	c    = flag.Bool("c", false, "use comma for input separator")
-	p    = flag.Bool("p", false, "use pipe for input separator")
-	isep = flag.String("is", "", "use <string> input separator")
-	osep = flag.String("os", "", "output separator")
+	p    = flag.Bool("p", false, "use pipe ('|') for input separator")
+	isep = flag.String("is", "", "specify `input separator`")
+	osep = flag.String("os", "", "specify `output separator`")
 )
 
 func usage() {
 	// Must note that "-c" takes precedence over "-p" which takes
 	// precedence over "-is".
 	fmt.Fprintf(os.Stderr, "usage: tcat [-cp] [-is <string>] [-os <string>] [file...]\n")
+	flag.PrintDefaults()
 	os.Exit(2)
 }
 
