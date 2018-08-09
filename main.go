@@ -19,15 +19,16 @@ import (
 
 var (
 	rows [][]string
-	c    = flag.Bool("c", false, "use comma for separator")
-	p    = flag.Bool("p", false, "use pipe for separator")
-	sep  = flag.String("s", "", "use <string> for separator")
+	c    = flag.Bool("c", false, "use comma for input separator")
+	p    = flag.Bool("p", false, "use pipe for input separator")
+	isep = flag.String("is", "", "use <string> input separator")
+	osep = flag.String("os", "", "output separator")
 )
 
 func usage() {
 	// Must note that "-c" takes precedence over "-p" which takes
-	// precedence over "-s".
-	fmt.Fprintf(os.Stderr, "usage: tcat [-cp] [-s <string>] [file...]\n")
+	// precedence over "-is".
+	fmt.Fprintf(os.Stderr, "usage: tcat [-cp] [-is <string>] [-os <string>] [file...]\n")
 	os.Exit(2)
 }
 
@@ -37,10 +38,10 @@ func main() {
 	flag.Usage = usage
 	flag.Parse()
 	if *p {
-		*sep = "|"
+		*isep = "|"
 	}
 	if *c {
-		*sep = ","
+		*isep = ","
 	}
 	if flag.NArg() == 0 {
 		read(os.Stdin)
@@ -73,8 +74,8 @@ func read(r io.Reader) {
 }
 
 func split(s string) []string {
-	if *sep != "" {
-		return strings.Split(strings.TrimSpace(s), *sep)
+	if *isep != "" {
+		return strings.Split(strings.TrimSpace(s), *isep)
 	}
 	return strings.Fields(s)
 }
@@ -103,6 +104,9 @@ func printTable(w io.Writer, rows [][]string) {
 				for j := utf8.RuneCountInString(c); j < max[i]+2; j++ {
 					b.WriteRune(' ')
 				}
+			}
+			if *osep != "" && i < len(row)-1 {
+				b.WriteString(*osep)
 			}
 		}
 		b.WriteRune('\n')

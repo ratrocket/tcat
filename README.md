@@ -15,3 +15,4 @@ See it in action:
     go build
     ./tcat testdata/spaces
     ./tcat -c testdata/commas
+    ./tcat -p testdata/pipes
