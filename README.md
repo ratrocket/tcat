@@ -4,7 +4,13 @@ Tcat is a table cat.
 
 Usage:
 
-    tcat [-c] [file ...]
+    tcat [-cp] [-is <string>] [-os <string>] [file...]
+      -c    use comma for input separator
+      -p    use pipe ('|') for input separator
+      -is   specify input separator
+      -os   specify output separator
+
+("-c" takes precedence over "-p" which takes precedence over "-is")
 
 Tcat reads the named input files, splits each line into space-(or
 comma-)separate fields, and then reprints the input aligning columns of
