@@ -9,8 +9,7 @@ Usage:
       -p    use pipe ('|') for input separator
       -is   specify input separator
       -os   specify output separator
-
-("-c" takes precedence over "-p" which takes precedence over "-is")
+    ("-c" takes precedence over "-p" which takes precedence over "-is")
 
 Tcat reads the named input files, splits each line into space-(or
 comma-)separate fields, and then reprints the input aligning columns of
