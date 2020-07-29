@@ -21,6 +21,7 @@ var (
 	rows [][]string
 	c    = flag.Bool("c", false, "use comma for input separator")
 	p    = flag.Bool("p", false, "use pipe ('|') for input separator")
+	t    = flag.Bool("t", false, "use tab for input separator")
 	isep = flag.String("is", "", "specify `input separator`")
 	osep = flag.String("os", "", "specify `output separator`")
 
@@ -31,7 +32,8 @@ var (
 func usage() {
 	// Must note that "-c" takes precedence over "-p" which takes
 	// precedence over "-is".
-	fmt.Fprintf(os.Stderr, "usage: tcat [-cp] [-is <string>] [-os <string>] [file...]\n")
+	fmt.Fprintf(os.Stderr, "usage: tcat [-cpt] [-is <string>] [-os <string>] [file...]\n")
+	fmt.Fprintf(os.Stderr, "       (also): -sections={true,false} -secsep string\n")
 	flag.PrintDefaults()
 	os.Exit(2)
 }
@@ -46,6 +48,9 @@ func main() {
 	}
 	if *c {
 		*isep = ","
+	}
+	if *t {
+		*isep = "\t"
 	}
 	if flag.NArg() == 0 {
 		read(os.Stdin)
