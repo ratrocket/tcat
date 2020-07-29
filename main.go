@@ -23,6 +23,9 @@ var (
 	p    = flag.Bool("p", false, "use pipe ('|') for input separator")
 	isep = flag.String("is", "", "specify `input separator`")
 	osep = flag.String("os", "", "specify `output separator`")
+
+	sections = flag.Bool("sections", false, "allow section separator")
+	secsep   = flag.String("secsep", "----", "prefix of section separator")
 )
 
 func usage() {
@@ -75,6 +78,9 @@ func read(r io.Reader) {
 }
 
 func split(s string) []string {
+	if *sections && strings.HasPrefix(s, *secsep) {
+		return []string{s}
+	}
 	if *isep != "" {
 		return strings.Split(strings.TrimSpace(s), *isep)
 	}
@@ -84,6 +90,9 @@ func split(s string) []string {
 func printTable(w io.Writer, rows [][]string) {
 	var max []int
 	for _, row := range rows {
+		if *sections && strings.HasPrefix(row[0], *secsep) {
+			continue
+		}
 		for i, c := range row {
 			n := utf8.RuneCountInString(c)
 			if i >= len(max) {
@@ -96,6 +105,10 @@ func printTable(w io.Writer, rows [][]string) {
 
 	b := bufio.NewWriter(w)
 	for _, row := range rows {
+		if *sections && strings.HasPrefix(row[0], *secsep) {
+			b.WriteString(row[0])
+			continue
+		}
 		for len(row) > 0 && row[len(row)-1] == "" {
 			row = row[:len(row)-1]
 		}
