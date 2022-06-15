@@ -41,6 +41,6 @@ See it in action:
 
 BSD 3-Clause "New" or "Revised" License
 
-(This repository retains the original license from the original
-repository it was forked from, rsc.io/tcat.  That repository's license
-is copied verbatim.  See LICENSE for details.)
+(This repository retains the license from the original repository it was
+forked from, rsc.io/tcat.  That repository's license is copied verbatim.
+See LICENSE for details.)
