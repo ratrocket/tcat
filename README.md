@@ -1,6 +1,10 @@
-Forked from rsc.io/tcat in order to add option to split input on commas.
+# tcat
 
-> **(May 2021)** moved to [md0.org/tcat](https://md0.org/tcat).
+Forked from rsc.io/tcat in order to add option to split input on commas
+(-c option).
+
+Later extended to split on pipes ("|"; -p), tabs (-t), and also anything
+else via -is (see usage).
 
 Tcat is a table cat.
 
