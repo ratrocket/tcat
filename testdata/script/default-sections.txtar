@@ -1,0 +1,14 @@
+exec tcat --sections sections.txt
+cmp stdout want.txt
+! stderr .
+
+-- sections.txt --
+---- This is a header
+line one has five words
+seconds line has words too
+ultimate line is five long
+-- want.txt --
+---- This is a header
+line      one   has  five   words
+seconds   line  has  words  too
+ultimate  line  is   five   long

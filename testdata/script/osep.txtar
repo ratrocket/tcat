@@ -1,0 +1,13 @@
+stdin osep.txt
+exec tcat --is=( --os=|
+cmp stdout want.txt
+! stderr .
+
+-- osep.txt --
+sushi(toast(crackers
+cat(dog(badger
+vim(emacs(ed
+-- want.txt --
+sushi | toast | crackers
+cat   | dog   | badger
+vim   | emacs | ed

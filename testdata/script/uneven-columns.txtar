@@ -1,0 +1,12 @@
+exec tcat --pipe --os=| uneven.txt
+cmp stdout want.txt
+! stderr .
+
+-- uneven.txt --
+hello | my | name    |      is   | guffaw!
+only      | three | columns!
+that     |    last|line|was        |     short
+-- want.txt --
+hello | my    | name     | is  | guffaw!
+only  | three | columns!
+that  | last  | line     | was | short

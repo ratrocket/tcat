@@ -1,0 +1,24 @@
+# with output separator
+
+exec tcat --is=( --os=) blank-columns.txt
+cmp stdout want-with-osep.txt
+! stderr .
+
+# without output separator
+
+exec tcat --is=( blank-columns.txt
+cmp stdout want-without-osep.txt
+! stderr .
+
+-- blank-columns.txt --
+set ( this ( up ( like
+four     (    ( cols ( but
+some(are ( blank (
+-- want-with-osep.txt --
+set  ) this ) up    ) like
+four )      ) cols  ) but
+some ) are  ) blank )
+-- want-without-osep.txt --
+set   this  up     like
+four        cols   but
+some  are   blank

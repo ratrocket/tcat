@@ -1,0 +1,27 @@
+# without osep
+
+exec tcat uneven-columns.txt
+cmp stdout want.txt
+! stderr .
+
+# with osep
+
+exec tcat --os=| uneven-columns.txt
+cmp stdout want-osep.txt
+! stderr .
+
+-- uneven-columns.txt --
+first row      has four
+second      has three
+third, two
+forth(haha)
+-- want.txt --
+first        row  has    four
+second       has  three
+third,       two
+forth(haha)
+-- want-osep.txt --
+first       | row | has   | four
+second      | has | three
+third,      | two
+forth(haha)

@@ -137,30 +137,77 @@ func printTable(w io.Writer, rows [][]string) {
 	b := bufio.NewWriter(w)
 	for _, row := range rows {
 		if *sections && strings.HasPrefix(row[0], *secsep) {
+			// row[0] is the entire row.
 			b.WriteString(row[0])
 			continue
 		}
 
-		// get rid of blank columns hanging off the end
-		for len(row) > 0 && row[len(row)-1] == "" {
+		// Get rid of blank columns hanging off the end, but
+		// only if osep is blank.  If osep isn't blank, we still
+		// want to represent the presence of a blank final
+		// column.
+		//
+		// Note this only matters for non-default
+		// (default=whitespace) input separator; it's impossible
+		// to have a blank last column if your columns are
+		// separated by whitespace.  You just have uneven
+		// columns (which is fine for tcat).
+		for *osep == "" && len(row) > 0 && row[len(row)-1] == "" {
 			row = row[:len(row)-1]
 		}
 
 		for i, col := range row {
+
+			// Write the contents...
 			b.WriteString(col)
 
-			// TODO I think you can do an early "continue"
-			// here if i == len(row)-1.  Both subsequent
-			// "ifs" will change their condition.
+			// ... then, unless it's the last column (in
+			// which case we break right here), add
+			// whatever's necessary, taking into account the
+			// width of the content relative to this
+			// column's max width, and "osep".
+			if i == len(row)-1 {
+				break
+			}
 
-			if i+1 < len(row) {
-				for j := runewidth.StringWidth(col); j < max[i]+2; j++ {
-					b.WriteRune(' ')
-				}
+			// First write spaces up until max[i].
+			for j := runewidth.StringWidth(col); j < max[i]; j++ {
+				b.WriteRune(' ')
 			}
-			if *osep != "" && i < len(row)-1 {
-				b.WriteString(*osep)
+
+			// Next, if osep is blank, add 2 spaces (so the
+			// widest column is separated from its
+			// neighbor-to-the-right by a *total* of two
+			// spaces).
+			//
+			// If osep isn't blank, add a space to either
+			// side of it and write that.  (With a little
+			// nuance around the last column being blank...
+			// keep reading the comments.)
+
+			// This does the right thing whether osep is
+			// blank or not.
+			b.WriteString(" " + *osep)
+
+			// Prevent writing a trailing space in the case
+			// that we're on the 2nd to last column and the
+			// last column is blank.  (Note that with input
+			// separated by whitespace, it's impossible to
+			// have a "blank" last column, and you can never
+			// reach this code.)
+			if i == len(row)-2 && row[len(row)-1] == "" {
+				// nop
+			} else {
+				b.WriteRune(' ')
 			}
+
+			// The above is equivalent (by DeMorgan's law)
+			// to the following (but I prefer the above; the
+			// intent seems *much* clearer to me):
+			// if i < len(row)-2 || row[len(row)-1] != "" {
+			// 	b.WriteRune(' ')
+			// }
+
 		}
 
 		b.WriteRune('\n')
