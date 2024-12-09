@@ -1,58 +1,6 @@
-# tcat does not deal with unicode
+add --build-info option to get git commit of when executable was built
+(cf. deliver from lbup project)
 
-Not a minimal example, clearly.
+--
 
--- input --
-input | len(in) | runeLen | sWidth
-cat | 3 | 3 | 3
-some cats: 🐱, 😹, 😼 | 27 | 18 | 21
-zaz: ẑa𝜔 | 13 | 8 | 8
-lateen: lâtêên | 17 | 14 | 14
-lâtêên | 9 | 6 | 6
-math: 𝐀⟍⟪𝔹𝛈⊋⦰ | 30 | 13 | 13
-wc: 🚾 | 8 | 5 | 6
-🍔 | 4 | 1 | 2
--- want-with-pipes --
-input                 | len(in) | runeLen | sWidth
-cat                   | 3       | 3       | 3
-some cats: 🐱, 😹, 😼 | 27      | 18      | 21
-zaz: ẑa𝜔              | 13      | 8       | 8
-lateen: lâtêên        | 17      | 14      | 14
-lâtêên                | 9       | 6       | 6
-math: 𝐀⟍⟪𝔹𝛈⊋⦰         | 30      | 13      | 13
-wc: 🚾                | 8       | 5       | 6
-🍔                    | 4       | 1       | 2
--- want-sans-pipes --
-input                    len(in)    runeLen    sWidth
-cat                      3          3          3
-some cats: 🐱, 😹, 😼    27         18         21
-zaz: ẑa𝜔                 13         8          8
-lateen: lâtêên           17         14         14
-lâtêên                   9          6          6
-math: 𝐀⟍⟪𝔹𝛈⊋⦰            30         13         13
-wc: 🚾                   8          5          6
-🍔                       4          1          2
--- got --
-input                 len(in)    runeLen    sWidth
-cat                   3          3          3
-some cats: 🐱, 😹, 😼    27         18         21
-zaz: ẑa𝜔              13         8          8
-lateen: lâtêên        17         14         14
-lâtêên                9          6          6
-math: 𝐀⟍⟪𝔹𝛈⊋⦰         30         13         13
-wc: 🚾                 8          5          6
-🍔                     4          1          2
-END--END--END--END--END--END--END--END--END--END
-
-# option to leave separator in output
-
-I often want the pipe character left in the output (and I usually use
-tcat to display pipe-separated files).
-
-(Thinking now... I think my tcat does have an option for specifying an
-output separator?  Maybe I could make it more ergonomic.)
-
-# convert to delegated main / testscript testing
-
-# add --build-info option to get git commit of when executable was built
-# (cf. deliver from lbup project)
+update README for mflag and for general usefulness.
