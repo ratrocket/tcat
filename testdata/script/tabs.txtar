@@ -1,0 +1,22 @@
+# short option
+
+stdin tabs.txt
+exec tcat -t
+cmp stdout want.txt
+! stderr .
+
+# long option
+
+stdin tabs.txt
+exec tcat --tab
+cmp stdout want.txt
+! stderr .
+
+-- tabs.txt --
+col1	col2	longcol 3 with a lot of different kind of space in it	col4
+cat	dog	person	warthog
+this is a column	this is also a column	this is a column	and... so is this
+-- want.txt --
+col1              col2                   longcol 3 with a lot of different kind of space in it  col4
+cat               dog                    person                                                 warthog
+this is a column  this is also a column  this is a column                                       and... so is this

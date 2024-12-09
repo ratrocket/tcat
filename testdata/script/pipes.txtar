@@ -1,0 +1,34 @@
+# short option
+
+stdin pipes.txt
+exec tcat -p
+cmp stdout want.txt
+! stderr .
+
+# long option
+
+stdin pipes.txt
+exec tcat --pipe
+cmp stdout want.txt
+! stderr .
+
+# pipes with spacing
+
+exec tcat -p pipes-with-spacing.txt
+cmp stdout want2.txt
+! stderr .
+
+-- pipes.txt --
+sushi|toast|crackers
+cat|dog|badger
+vim|emacs|ed
+-- want.txt --
+sushi  toast  crackers
+cat    dog    badger
+vim    emacs  ed
+-- pipes-with-spacing.txt --
+a|bat|banana
+grapefruit      |         drizzle      |     river
+-- want2.txt --
+a           bat      banana
+grapefruit  drizzle  river

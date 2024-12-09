@@ -1,0 +1,11 @@
+stdin unicode1.txt
+exec tcat -p
+cmp stdout want.txt
+! stderr .
+
+-- unicode1.txt --
+a camel 🐪 🐔 | four feet
+and a chicken | two feet
+-- want.txt --
+a camel 🐪 🐔  four feet
+and a chicken  two feet

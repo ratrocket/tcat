@@ -1,0 +1,13 @@
+stdin spaces.txt
+exec tcat
+cmp stdout want.txt
+! stderr .
+
+-- spaces.txt --
+a b c
+cat dogs   birds
+space	tab	other
+-- want.txt --
+a      b     c
+cat    dogs  birds
+space  tab   other

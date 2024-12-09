@@ -1,0 +1,11 @@
+stdin spaces-unicode.txt
+exec tcat
+cmp stdout want.txt
+! stderr .
+
+-- spaces-unicode.txt --
+🐪🐔 camelchicken
+two feet
+-- want.txt --
+🐪🐔  camelchicken
+two   feet

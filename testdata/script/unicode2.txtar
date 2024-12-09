@@ -1,0 +1,25 @@
+stdin unicode2.txt
+exec tcat -p
+cmp stdout want.txt
+! stderr .
+
+-- unicode2.txt --
+input | len(in) | runeLen | sWidth
+cat | 3 | 3 | 3
+some cats: 🐱, 😹, 😼 | 27 | 18 | 21
+zaz: ẑa𝜔 | 13 | 8 | 8
+lateen: lâtêên | 17 | 14 | 14
+lâtêên | 9 | 6 | 6
+math: 𝐀⟍⟪𝔹𝛈⊋⦰ | 30 | 13 | 13
+wc: 🚾 | 8 | 5 | 6
+🍔 | 4 | 1 | 2
+-- want.txt --
+input                  len(in)  runeLen  sWidth
+cat                    3        3        3
+some cats: 🐱, 😹, 😼  27       18       21
+zaz: ẑa𝜔               13       8        8
+lateen: lâtêên         17       14       14
+lâtêên                 9        6        6
+math: 𝐀⟍⟪𝔹𝛈⊋⦰          30       13       13
+wc: 🚾                 8        5        6
+🍔                     4        1        2
