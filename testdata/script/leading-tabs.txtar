@@ -1,0 +1,11 @@
+stdin leading.txt
+exec tcat -p --os @
+cmp stdout want.txt
+! stderr .
+
+-- leading.txt --
+	this | 	every	| col	| 	tabs
+this | one | no |tabs
+-- want.txt --
+this @ every @ col @ tabs
+this @ one   @ no  @ tabs
