@@ -3,8 +3,8 @@
 Forked from rsc.io/tcat in order to add option to split input on commas
 (-c option).
 
-Later extended to split on pipes ("|"; -p), tabs (-t), and also anything
-else via -is (see usage).
+Later extended to split on pipes ("|"; `-p`), tabs (`-t`), and also
+anything else via `--is` (see usage).
 
 Tcat is a table cat.
 
