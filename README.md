@@ -60,7 +60,7 @@ space   tab     other
 ```
 
 ```
-# output
+> tcat spaces.txt  # separating on spaces is the default
 a      b     c
 cat    dogs  birds
 space  tab   other
@@ -76,7 +76,7 @@ Bob,32,8,dogs|walking|water
 ```
 
 ```
-# output
+> tcat -c  # or --comma
 label0  label1  label2  label3
 Alice   45      6       cats|coffee
 Bob     32      8       dogs|walking|water
@@ -92,7 +92,7 @@ vim|emacs|ed
 ```
 
 ```
-# output
+> tcat -p  # or --pipe
 sushi  toast  crackers
 cat    dog    badger
 vim    emacs  ed
@@ -108,7 +108,7 @@ this is a column        this is also a column   this is a column        and... s
 ```
 
 ```
-# output
+> tcat -t  # or --tab
 col1              col2                   longcol 3 with a lot of different kind of space in it  col4
 cat               dog                    person                                                 warthog
 this is a column  this is also a column  this is a column                                       and... so is this
