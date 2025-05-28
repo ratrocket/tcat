@@ -3,6 +3,16 @@
 > The authoritative version of `tcat` (of my fork, that is) lives on
 > [sourcehut](https://git.sr.ht/~md0/tcat).  Anything else is a mirror
 > and may lag behind.
+>
+> The import path is md0.org/tcat.
+
+## Installation
+
+```
+go install md0.org/tcat@latest
+```
+
+## md0.org fork
 
 Forked from rsc.io/tcat in order to add option to split input on commas
 (-c option).
@@ -10,7 +20,9 @@ Forked from rsc.io/tcat in order to add option to split input on commas
 Later extended to split on pipes ("|"; `-p`), tabs (`-t`), and also
 anything else via `--is` (see usage).
 
-Tcat is a table cat.
+## modified original README
+
+Tcat is a tabular cat.
 
 Usage:
 
