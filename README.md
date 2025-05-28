@@ -1,5 +1,9 @@
 # tcat
 
+> The authoritative version of `tcat` (of my fork, that is) lives on
+> [sourcehut](https://git.sr.ht/~md0/tcat).  Anything else is a mirror
+> and may lag behind.
+
 Forked from rsc.io/tcat in order to add option to split input on commas
 (-c option).
 
