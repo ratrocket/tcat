@@ -45,13 +45,74 @@ fields.
 line starting with "secep" (default "----") will be passed through tcat
 untouched.
 
-See it in action:
+## Examples
 
-    go build
-    ./tcat testdata/spaces
-    ./tcat -c testdata/commas
-    ./tcat -p testdata/pipes
-    ./tcat -t testdata/tabs
+All of these are based on the testscript/txtar tests in
+testdata/script/, named, e.g., "spaces.txtar".
+
+### spaces
+
+```
+> cat spaces.txt
+a b c
+cat dogs   birds
+space   tab     other
+```
+
+```
+# output
+a      b     c
+cat    dogs  birds
+space  tab   other
+```
+
+### commas
+
+```
+> cat commas.txt
+label0,label1,label2,label3
+Alice,45,6,cats|coffee
+Bob,32,8,dogs|walking|water
+```
+
+```
+# output
+label0  label1  label2  label3
+Alice   45      6       cats|coffee
+Bob     32      8       dogs|walking|water
+```
+
+### pipes
+
+```
+> cat pipes.txt
+sushi|toast|crackers
+cat|dog|badger
+vim|emacs|ed
+```
+
+```
+# output
+sushi  toast  crackers
+cat    dog    badger
+vim    emacs  ed
+```
+
+### tabs
+
+```
+> cat tabs.txt
+col1    col2    longcol 3 with a lot of different kind of space in it   col4
+cat     dog     person  warthog
+this is a column        this is also a column   this is a column        and... so is this
+```
+
+```
+# output
+col1              col2                   longcol 3 with a lot of different kind of space in it  col4
+cat               dog                    person                                                 warthog
+this is a column  this is also a column  this is a column                                       and... so is this
+```
 
 ## License
 
